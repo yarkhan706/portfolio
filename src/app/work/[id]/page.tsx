@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProjectPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const id = parseInt(params.id);
-  const project = projects[id];
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { id } = await params;
+  const projectIndex = parseInt(id);
+  const project = projects[projectIndex];
 
   if (!project) {
     return (
@@ -46,13 +47,13 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               <Image
                 key={index}
                 src={src}
-              alt={`${project.name} screenshot ${index + 1}`}
-              width={600}
-              height={400}
-              className="rounded-lg"
-            />
-          ))}
-        </div>
+                alt={`${project.name} screenshot ${index + 1}`}
+                width={600}
+                height={400}
+                className="rounded-lg"
+              />
+            ))}
+          </div>
         </>
       )}
 
