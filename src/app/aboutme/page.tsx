@@ -1,3 +1,6 @@
+'use client'
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 export default function AboutMe() {
@@ -7,8 +10,8 @@ export default function AboutMe() {
                 {/* Left Column - Images and Timeline */}
                 <div className="space-y-8">
                     {/* Image Placeholder */}
-                    <div className="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
-                        <span className="text-gray-400 text-lg">Image Placeholder</span>
+                    <div className="w-full h-3/5 rounded-lg flex items-start justify-center">
+                        <Image src="/images/profile.jpeg" alt="Profile" width={350} height={350} />
                     </div>
                     
                     {/* Education Timeline */}
@@ -107,10 +110,9 @@ export default function AboutMe() {
                     </div>
                     
                     {/* Lifestyle Image */}
-                    <div className="space-y-4">
-                        <div className="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-                            <span className="text-gray-400 text-lg">Image Placeholder</span>
-                        </div>
+                    <div className="relative w-full h-auto bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
+                        <div className="absolute text-xs bg-white/70 cursor-pointer hover:bg-white/50 font-medium text-black px-4 py-3 rounded-none" onClick={() => redirect('/gallery')}>LIFESTYLE</div>
+                        <Image src={'/images/gallery/10.jpeg'} alt="Life Style" width={600} height={800} />
                     </div>
                 </div>
             </div>
