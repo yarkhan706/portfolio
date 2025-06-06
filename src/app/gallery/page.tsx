@@ -6,14 +6,14 @@ const GalleryPage = () => {
   // Generate an array of image paths from 1.jpeg to 26.jpeg
   const images = Array.from({ length: 26 }, (_, i) => `/images/gallery/${i + 1}.jpeg`);
   
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; index: number } | null>(null);
   const [imageErrors, setImageErrors] = useState(new Set());
 
-  const handleImageError = (index) => {
+  const handleImageError = (index: number) => {
     setImageErrors(prev => new Set([...prev, index]));
   };
 
-  const openLightbox = (src, index) => {
+  const openLightbox = (src: string, index: number) => {
     if (!imageErrors.has(index)) {
       setSelectedImage({ src, index });
     }
@@ -23,7 +23,7 @@ const GalleryPage = () => {
     setSelectedImage(null);
   };
 
-  const navigateImage = (direction) => {
+  const navigateImage = (direction: 'next' | 'prev') => {
     if (!selectedImage) return;
     
     const currentIndex = selectedImage.index;
