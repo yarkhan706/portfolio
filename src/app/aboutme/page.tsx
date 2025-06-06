@@ -10,7 +10,7 @@ export default function AboutMe() {
                 {/* Left Column - Images and Timeline */}
                 <div className="space-y-8">
                     {/* Image Placeholder */}
-                    <div className="w-full h-3/5 rounded-lg flex items-start justify-center">
+                    <div className="w-full  rounded-lg flex items-start justify-center">
                         <Image src="/images/profile.jpeg" alt="Profile" width={350} height={350} />
                     </div>
                     
