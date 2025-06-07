@@ -48,18 +48,19 @@ export const metadata: Metadata = {
     siteName: 'Asfand Yar Khan',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/name.svg',
         width: 1200,
         height: 630,
         alt: 'Asfand Yar Khan - Web Developer Portfolio',
       }
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Asfand Yar Khan - Web Developer Portfolio',
     description: 'Full Stack Web Developer specializing in React, Next.js, Node.js, and modern web technologies.',
-    images: ['/twitter-image.jpg'],
+    images: ['/name.svg'],
     creator: '@yarkhan706',
   },
   robots: {
@@ -75,6 +76,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/name.svg',
+    apple: '/name.svg',
   },
   category: 'technology',
   classification: 'Business',
@@ -106,6 +108,7 @@ export default function RootLayout({
         
         {/* Additional SEO tags */}
         <meta name="format-detection" content="telephone=no" />
+
         
         {/* Schema.org structured data */}
         <script
