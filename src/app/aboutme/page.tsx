@@ -19,17 +19,17 @@ export default function AboutMe() {
                         <div>
                             <span className="text-sm font-medium text-gray-900">2021-2025</span>
                             <span className="text-sm text-gray-600 ml-2">Computer Science Student at</span>
-                            <span className="text-sm text-gray-600 ml-1">COMSATS University Islamabad</span>
+                            <span className="text-sm text-gray-600 ml-1">COMSATS University Islamabad, Attock Campus</span>
                         </div>
                         
                         <div>
                             <span className="text-sm font-medium text-gray-900">2020-2021</span>
                             <span className="text-sm text-gray-600 ml-2">Computer Science Intermediate at</span>
-                            <span className="text-sm text-gray-600 ml-1">College</span>
+                            <span className="text-sm text-gray-600 ml-1">Fazaia College ARF, Kamra</span>
                         </div>
                         
                         <div>
-                            <span className="text-sm font-medium text-gray-900">2018-2020</span>
+                            <span className="text-sm font-medium text-gray-900">2018-2019</span>
                             <span className="text-sm text-gray-600 ml-2">Matriculation at</span>
                             <span className="text-sm text-gray-600 ml-1">Asma Private School</span>
                         </div>
@@ -60,7 +60,7 @@ export default function AboutMe() {
                             </div>
                             <div>
                                 <span className="font-medium">2020-2021</span>
-                                <span className="text-gray-600 ml-2">Intermediate in Computer Science | College</span>
+                                <span className="text-gray-600 ml-2">Intermediate in Computer Science | Fazaia College ARF, Kamra</span>
                             </div>
                             <div>
                                 <span className="font-medium">2018-2019</span>

@@ -20,8 +20,8 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center text-gray-400 gap-4  text-sm tracking-tight">
-          <Link href="/work" className={`${pathname === "/work" ? "text-gray-900" : "hover:text-gray-900 active:text-gray-900"}`}>work</Link>
           <Link href="/aboutme" className={`${pathname === "/aboutme" ? "text-gray-900" : "hover:text-gray-900 active:text-gray-900"}`}>about</Link>
+          <Link href="/work" className={`${pathname === "/work" ? "text-gray-900" : "hover:text-gray-900 active:text-gray-900"}`}>work</Link>
           <Link href="https://www.instagram.com/yarkhan706/" className={`${pathname === "/instagram" ? "text-gray-900" : "hover:text-gray-900 active:text-gray-900"}`}>instagram</Link>
         </nav>
 
@@ -60,18 +60,18 @@ export default function Header() {
           {/* Centered Navigation Links */}
           <nav className="flex-1 flex flex-col items-center justify-center gap-4">
             <Link
-              href="/work"
-              className="text-sm font-semibold tracking-tight"
-              onClick={() => setMenuOpen(false)}
-            >
-              work
-            </Link>
-            <Link
               href="/aboutme"
               className="text-sm font-semibold tracking-tight"
               onClick={() => setMenuOpen(false)}
             >
               about
+            </Link>
+            <Link
+              href="/work"
+              className="text-sm font-semibold tracking-tight"
+              onClick={() => setMenuOpen(false)}
+            >
+              work
             </Link>
             <Link
               href="https://www.instagram.com/yarkhan706/"
