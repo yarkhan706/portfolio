@@ -21,7 +21,7 @@ export const projects = [
   <p class="mt-4 text-gray-700">
     AcademeEase embodies my commitment to combining simplicity, elegance, and functionality to create meaningful digital experiences for students.
     <br />
-    <a href="https://academeease.vercel.app/" target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">
+    <a href="https://academe-ease.vercel.app/" target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">
       Try it out!
     </a>
   </p>
