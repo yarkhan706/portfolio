@@ -105,7 +105,41 @@ export const projects = [
       "/images/ak4.png",
     ],
     link: "https://github.com/yarkhan706/ayk-store"
-  }
-  
+  },
+  {
+    name: "BotDrop",
+    description: `
+    <h2 class="text-xl font-bold mb-2">BotDrop: AI Chatbot Builder with Embeddable Widget</h2>
+    <p class="text-gray-700 mb-4">
+      BotDrop is a minimal, embeddable AI chatbot platform that allows users to create, configure, and deploy conversational assistants in seconds. Designed for simplicity and elegance, it helps developers and creators embed intelligent chat interfaces on any site with just one line of code.
+    </p>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li><span class="font-semibold">Visual Bot Builder:</span> User-friendly UI to create and edit chatbot personality and responses.</li>
+      <li><span class="font-semibold">Embed Anywhere:</span> Generates a lightweight <code>&lt;script&gt;</code> snippet to drop into any website—no setup required.</li>
+      <li><span class="font-semibold">Authentication:</span> Supabase Auth (OAuth via Google) for secure, personalized access.</li>
+      <li><span class="font-semibold">Data Layer:</span> Prisma ORM with PostgreSQL ensures scalable and clean data management.</li>
+      <li><span class="font-semibold">OpenAI Integration:</span> Powered by GPT-4 for contextual, human-like chat responses.</li>
+      <li><span class="font-semibold">Modern Stack:</span> Built with Next.js App Router, Tailwind CSS, and shadcn/ui for speed and clean design.</li>
+      <li><span class="font-semibold">Live Preview:</span> Instantly preview your bot while editing its configuration.</li>
+      <li><span class="font-semibold">Fully Responsive:</span> Optimized for mobile and desktop devices.</li>
+      <li><span class="font-semibold">Hosted on Vercel:</span> Leveraging serverless deployment for performance and scalability.</li>
+    </ul>
+    <p class="mt-4 text-gray-700">
+      BotDrop reflects my love for tools that combine intelligent features, minimal design, and developer convenience.
+      <br />
+      <a href="https://botdrop.vercel.app/" target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">
+        Try BotDrop Live
+      </a>
+    </p>
+    `,
+    stack: ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Prisma ORM", "OpenAI", "TypeScript"],
+    cover: "/images/chatbot.png",
+    screenshots: [
+      "/images/chatbot.png",
+      "/images/chex.png",
+    ],
+    link: "https://github.com/yarkhan706/botdrop"
+  }  
+
   ];
   
