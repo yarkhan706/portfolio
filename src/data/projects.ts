@@ -136,7 +136,7 @@ export const projects = [
     cover: "/images/chatbot.png",
     screenshots: [
       "/images/chatbot.png",
-      "/images/cbd.png"
+      "/images/cbd.png",
       "/images/chex.png",
     ],
     link: "https://github.com/yarkhan706/botdrop"
