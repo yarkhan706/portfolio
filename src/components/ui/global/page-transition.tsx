@@ -13,7 +13,7 @@ function labelFor(pathname: string) {
   }
   if (pathname.startsWith("/work")) return "Work";
   if (pathname.startsWith("/aboutme")) return "About";
-  if (pathname.startsWith("/gallery")) return "Instagram";
+  if (pathname.startsWith("/gallery")) return "Life";
   return "";
 }
 

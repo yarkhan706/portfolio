@@ -5,19 +5,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const LINKS = [
-  { href: "/work", num: "01", label: "work" },
-  { href: "/aboutme", num: "02", label: "about" },
-  { href: "/gallery", num: "03", label: "instagram" },
+  { href: "/aboutme", num: "01", label: "about" },
+  { href: "/work", num: "02", label: "work" },
+  { href: "/gallery", num: "03", label: "life" },
 ];
 
 // Mobile menu: pages + socials in one oversized numbered list.
 const MENU_ITEMS = [
-  { href: "/work", num: "01", label: "work" },
-  { href: "/aboutme", num: "02", label: "about" },
-  { href: "/gallery", num: "03", label: "instagram" },
-  { href: "mailto:asfandyarkhan.dev@gmail.com", num: "04", label: "email" },
-  { href: "https://www.linkedin.com/in/yarkhan706", num: "05", label: "linkedin" },
-  { href: "https://github.com/yarkhan706", num: "06", label: "github" },
+  { href: "/aboutme", num: "01", label: "about" },
+  { href: "/work", num: "02", label: "work" },
+  { href: "/gallery", num: "03", label: "life" },
+  { href: "https://www.instagram.com/yarkhan706/", num: "04", label: "instagram" },
+  { href: "mailto:asfandyarkhan.dev@gmail.com", num: "05", label: "email" },
+  { href: "https://www.linkedin.com/in/yarkhan706", num: "06", label: "linkedin" },
+  { href: "https://github.com/yarkhan706", num: "07", label: "github" },
 ];
 
 function isActive(pathname: string, href: string) {

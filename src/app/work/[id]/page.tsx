@@ -98,13 +98,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         {/* Hero */}
-        <div className="aspect-[16/9] bg-[var(--slot)] overflow-hidden my-[34px] border-2 border-[var(--ink)]">
+        <div className="bg-[var(--slot)] overflow-hidden my-[34px] border-2 border-[var(--ink)]">
           <Image
             src={project.cover}
             alt={project.name}
             width={1400}
             height={788}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-auto object-cover block"
             priority
           />
         </div>

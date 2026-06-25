@@ -45,14 +45,14 @@ export default function WorkPage() {
         <article className="grid grid-cols-12 gap-6 py-11 border-b border-[var(--ink)] items-start">
           <Link
             href={`/work/${featuredIndex}`}
-            className="col-span-12 md:col-span-7 aspect-[16/10] bg-[var(--slot)] overflow-hidden group block border-2 border-[var(--ink)]"
+            className="col-span-12 md:col-span-7 bg-[var(--slot)] overflow-hidden group block border-2 border-[var(--ink)] self-start"
           >
             <Image
               src={featured.cover}
               alt={featured.name}
               width={900}
               height={563}
-              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+              className="w-full h-auto object-cover block transition-transform duration-500 group-hover:scale-[1.02]"
               priority
             />
           </Link>
@@ -101,13 +101,13 @@ export default function WorkPage() {
                 href={`/work/${index}`}
                 className="col-span-12 sm:col-span-6 md:col-span-4 group block"
               >
-                <div className="aspect-[4/3] bg-[var(--slot)] overflow-hidden mb-4">
+                <div className="bg-[var(--slot)] overflow-hidden mb-4 border border-[var(--line-soft)]">
                   <Image
                     src={project.cover}
                     alt={project.name}
                     width={460}
                     height={345}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="w-full h-auto object-cover block transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
                 <div className="flex items-baseline gap-2.5 mb-2">
