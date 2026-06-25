@@ -29,7 +29,14 @@ export const projects = [
     screenshots: [
       "/images/maxiom.png",
     ],
-    link: "https://www.maxiom.io/"
+    link: "https://www.maxiom.io/",
+    year: "2026",
+    featured: true,
+    tagline: "An AI fitness and health coaching platform — a real-time voice coach, wearable data, and hyper-personalized guidance for workouts, nutrition, and recovery.",
+    category: "AI · Health · SaaS",
+    tags: ["AI Coaching", "AWS", "React"],
+    role: "Full-Stack Engineer",
+    kicker: "AI health coaching, personalized."
   },
   {
     name: "MindTime AI",
@@ -61,7 +68,14 @@ export const projects = [
     screenshots: [
       "/images/mindtime.png",
     ],
-    link: "https://mindtime.com/"
+    link: "https://mindtime.com/",
+    year: "2026",
+    featured: false,
+    tagline: "Self-serve Team Intelligence that turns cognitive science into a context-aware AI assistant.",
+    category: "AI · Teams · SaaS",
+    tags: ["AI", "Supabase", "TypeScript"],
+    role: "Full-Stack Engineer",
+    kicker: "Team intelligence from how you think."
   },
   {
     name: "AcademeEase",
@@ -101,7 +115,14 @@ export const projects = [
       "/images/ae_kanban.png",
       "/images/ae_pomodoro.png",
     ],
-    link: "https://github.com/yarkhan706/final-project-academ-ease"
+    link: "https://github.com/yarkhan706/final-project-academ-ease",
+    year: "2025",
+    featured: false,
+    tagline: "A full SaaS academic productivity tool — task management, study notes, a Pomodoro timer and an AI assistant in one calm workspace.",
+    category: "SaaS · AI · Next.js",
+    tags: ["SaaS", "AI Prompting", "Next.js"],
+    role: "Final Year Project",
+    kicker: "Academic productivity, simplified."
   },
   {
     name: "NUBEX CLOUD",
@@ -137,7 +158,14 @@ export const projects = [
       "/images/nu_4.png",
       "/images/nu_5.png",
     ],
-    link: "https://github.com/yarkhan706/nubex-cloud-scape"
+    link: "https://github.com/yarkhan706/nubex-cloud-scape",
+    year: "2024",
+    featured: false,
+    tagline: "Marketing site for a cloud services company — built to convert and scale.",
+    category: "Landing · Web · Brand",
+    tags: ["React", "Landing", "Brand"],
+    role: "Design & Build",
+    kicker: "Cloud infrastructure that scales."
   },
   {
     name: "Ayk Store",
@@ -168,7 +196,14 @@ export const projects = [
       "/images/ak3.png",
       "/images/ak4.png",
     ],
-    link: "https://github.com/yarkhan706/ayk-store"
+    link: "https://github.com/yarkhan706/ayk-store",
+    year: "2024",
+    featured: false,
+    tagline: "A headwear e-commerce storefront with a clean catalog and cart flow.",
+    category: "E-commerce · Storefront · UI",
+    tags: ["React", "Firebase", "SCSS"],
+    role: "Frontend",
+    kicker: "A modern e-commerce storefront."
   },
   {
     name: "BotDrop",
@@ -203,7 +238,14 @@ export const projects = [
       "/images/cbd.png",
       "/images/chex.png",
     ],
-    link: "https://github.com/yarkhan706/botdrop"
+    link: "https://github.com/yarkhan706/botdrop",
+    year: "2025",
+    featured: false,
+    tagline: "Build and embed smart AI chatbots on any site — instantly, with custom prompts.",
+    category: "AI · SaaS · Widget",
+    tags: ["AI", "Next.js", "Supabase"],
+    role: "Full-Stack",
+    kicker: "Embeddable AI chatbots."
   }
 
   ];

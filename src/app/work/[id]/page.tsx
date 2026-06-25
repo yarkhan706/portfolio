@@ -1,9 +1,20 @@
 import { projects } from "@/data/projects";
+import Image from "next/image";
 import Link from "next/link";
-import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 
 interface ProjectPageProps {
   params: Promise<{ id: string }>;
+}
+
+function MetaCell({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="text-[10px] tracking-[0.14em] uppercase text-[var(--muted)] mb-1.5">
+        {label}
+      </div>
+      <div className="text-sm text-[var(--ink)]">{children}</div>
+    </div>
+  );
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -13,86 +24,150 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   if (!project) {
     return (
-      <div className="container mx-auto px-4 py-16">
-        <p className="text-gray-500">Project not found.</p>
-        <Link href="/work" className="link-underline pb-0.5 text-gray-900 mt-4 inline-block">
-          ← Back to work
+      <main className="max-w-[1440px] mx-auto px-6 md:px-10 py-20">
+        <p className="text-[var(--body)]">Project not found.</p>
+        <Link
+          href="/work"
+          className="text-[11px] tracking-[0.12em] uppercase border-b-2 border-[var(--accent)] pb-[3px] mt-5 inline-block"
+        >
+          ← Index / Work
         </Link>
-      </div>
+      </main>
     );
   }
 
-  const isLive = project.link.includes("github.com") === false;
+  const total = projects.length;
+  const next = projects[(projectIndex + 1) % total];
+  const nextIndex = (projectIndex + 1) % total;
+  const isLive = !project.link.includes("github.com");
+  // Gallery = every screenshot that isn't the cover. Single-image projects
+  // end up with an empty gallery and the section is hidden entirely.
+  const gallery = (project.screenshots ?? []).filter((s) => s !== project.cover);
 
   return (
-    <article className="container mx-auto px-4 py-12 md:py-16 max-w-3xl">
-      {/* Back */}
-      <Link
-        href="/work"
-        className="group inline-flex items-center gap-1.5 text-xs tracking-wide text-gray-400 hover:text-gray-900 mb-10"
-      >
-        <span className="transition-transform duration-300 group-hover:-translate-x-0.5">←</span>
-        Back to work
-      </Link>
-
-      {/* Title */}
-      <header className="reveal mb-10">
-        <h1 className="font-serif-display text-4xl md:text-5xl font-light text-gray-900 leading-tight">
-          {project.name}
-        </h1>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {project.stack.map((tech, index) => (
-            <span
-              key={index}
-              className="rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-500"
-            >
-              {tech}
-            </span>
-          ))}
+    <main className="max-w-[1440px] mx-auto px-6 md:px-10">
+      <article className="pf-page">
+        {/* Top bar */}
+        <div className="flex items-baseline justify-between pt-[34px] pb-5">
+          <Link
+            href="/work"
+            className="text-[11px] tracking-[0.12em] uppercase text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
+          >
+            ← Index / Work
+          </Link>
+          <span className="text-[11px] tracking-[0.12em] uppercase text-[var(--muted)]">
+            {String(projectIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
         </div>
-      </header>
 
-      {/* Description (rich HTML from data) */}
-      <div
-        className="reveal prose-portfolio max-w-none text-gray-600"
-        dangerouslySetInnerHTML={{ __html: project.description }}
-      />
+        <div className="border-t-2 border-[var(--ink)]" />
 
-      {/* CTA */}
-      <div className="reveal mt-8">
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-2.5 text-sm text-white hover:bg-gray-700"
-        >
-          {isLive ? "Visit live site" : "View source"}
-          <span className="transition-transform duration-300 group-hover:translate-x-0.5">↗</span>
-        </a>
-      </div>
+        {/* Title + kicker */}
+        <div className="grid grid-cols-12 gap-6 items-end pt-10 pb-[26px]">
+          <h1 className="col-span-12 md:col-span-9 m-0 font-bold uppercase text-[clamp(48px,8vw,116px)] leading-[0.86] tracking-[-0.035em]">
+            {project.name}
+          </h1>
+          <div className="col-span-12 md:col-span-3 md:pb-2.5 text-[13px] leading-[1.5] text-[var(--body-soft)]">
+            {project.kicker}
+          </div>
+        </div>
 
-      {/* Screenshots */}
-      {project.screenshots && project.screenshots.length > 0 && (
-        <section className="mt-16">
-          <p className="text-xs tracking-[0.25em] uppercase text-gray-400 mb-6">
-            Screenshots
+        {/* Meta row */}
+        <div className="grid grid-cols-12 gap-6 pb-6 border-b border-[var(--ink)]">
+          <div className="col-span-6 md:col-span-3">
+            <MetaCell label="Role">{project.role}</MetaCell>
+          </div>
+          <div className="col-span-6 md:col-span-3">
+            <MetaCell label="Year">{project.year}</MetaCell>
+          </div>
+          <div className="col-span-6 md:col-span-3">
+            <MetaCell label="Stack">{project.stack.slice(0, 3).join(" · ")}</MetaCell>
+          </div>
+          <div className="col-span-6 md:col-span-3">
+            <MetaCell label={isLive ? "Live Site" : "Repository"}>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--ink)] no-underline border-b-2 border-[var(--accent)] pb-0.5 hover:text-[var(--accent)] transition-colors"
+              >
+                {isLive ? "Visit ↗" : "GitHub ↗"}
+              </a>
+            </MetaCell>
+          </div>
+        </div>
+
+        {/* Hero */}
+        <div className="aspect-[16/9] bg-[var(--slot)] overflow-hidden my-[34px] border-2 border-[var(--ink)]">
+          <Image
+            src={project.cover}
+            alt={project.name}
+            width={1400}
+            height={788}
+            className="w-full h-full object-cover object-top"
+            priority
+          />
+        </div>
+
+        {/* Overview */}
+        <div className="grid grid-cols-12 gap-6 pb-12">
+          <div className="col-span-12 md:col-span-3 text-[11px] tracking-[0.14em] uppercase text-[var(--muted)] pt-1.5">
+            Overview
+          </div>
+          <p className="col-span-12 md:col-span-7 m-0 text-lg leading-[1.55] text-[var(--ink-soft)]">
+            {project.tagline}
           </p>
-          <div className="space-y-6">
-            {project.screenshots.map((src, index) => (
-              <div key={index} className="relative aspect-[10/7] overflow-hidden rounded-xl bg-gray-50">
-                <ImageWithSkeleton
+        </div>
+
+        {/* Detail (rich HTML from data) */}
+        <div className="grid grid-cols-12 gap-6 pb-12">
+          <div className="col-span-12 md:col-span-3 text-[11px] tracking-[0.14em] uppercase text-[var(--muted)] pt-1.5">
+            Details
+          </div>
+          <div
+            className="col-span-12 md:col-span-8 prose-portfolio max-w-none"
+            dangerouslySetInnerHTML={{ __html: project.description }}
+          />
+        </div>
+
+        {/* Screenshots — all remaining images, two per row, shown in full
+            (no crop) so detail stays crisp. Hidden when the project has only
+            the cover image. */}
+        {gallery.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
+            {gallery.map((src, i) => (
+              <div
+                key={src + i}
+                className="bg-[var(--slot)] overflow-hidden border border-[var(--line-soft)]"
+              >
+                <Image
                   src={src}
-                  alt={`${project.name} screenshot ${index + 1}`}
+                  alt={`${project.name} screenshot ${i + 1}`}
                   width={1000}
-                  height={700}
-                  wrapperClassName="h-full w-full"
-                  className="h-full w-full object-cover"
+                  height={750}
+                  className="w-full h-auto object-contain"
                 />
               </div>
             ))}
           </div>
-        </section>
-      )}
-    </article>
+        )}
+
+        {/* Next project */}
+        <Link
+          href={`/work/${nextIndex}`}
+          className="group w-full flex items-baseline justify-between gap-5 border-t-2 border-[var(--ink)] pt-[22px] pb-[60px] text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
+        >
+          <span className="text-[11px] tracking-[0.14em] uppercase text-[var(--muted)] whitespace-nowrap">
+            Next project
+          </span>
+          <span className="font-bold uppercase text-[clamp(24px,3.4vw,44px)] tracking-[-0.02em] text-right">
+            {next.name}{" "}
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </span>
+        </Link>
+      </article>
+    </main>
   );
 }

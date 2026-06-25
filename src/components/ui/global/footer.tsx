@@ -1,35 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Linkedin, Instagram, Github } from "lucide-react";
+
+const LINKS = [
+  { href: "mailto:asfandyarkhan.dev@gmail.com", label: "Email" },
+  { href: "https://www.linkedin.com/in/yarkhan706", label: "LinkedIn" },
+  { href: "https://www.instagram.com/yarkhan706/", label: "Instagram" },
+  { href: "https://github.com/yarkhan706", label: "GitHub" },
+];
 
 export default function Footer() {
-  const year = new Date().getFullYear();
-
   return (
-    <footer className="mt-16 border-t border-gray-100 py-10">
-      <div className="container mx-auto flex flex-col items-center justify-center space-y-5">
-        {/* Social Icons */}
-        <div className="flex space-x-6 text-gray-400">
-          <Link href="mailto:asfandyarkhan.dev@gmail.com" className="hover:text-gray-900 hover:-translate-y-0.5" aria-label="Email">
-            <Mail size={20} strokeWidth={1.5} />
+    <footer className="max-w-[1440px] mx-auto px-6 md:px-10 pt-6 pb-10 mt-10 border-t-2 border-[var(--ink)] flex items-end justify-between flex-wrap gap-5">
+      <div className="flex flex-wrap gap-[22px]">
+        {LINKS.map((l) => (
+          <Link
+            key={l.label}
+            href={l.href}
+            target={l.href.startsWith("http") ? "_blank" : undefined}
+            rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            className="text-[11px] tracking-[0.1em] uppercase text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
+          >
+            {l.label}
           </Link>
-          <Link href="https://www.linkedin.com/in/yarkhan706/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 hover:-translate-y-0.5" aria-label="LinkedIn">
-            <Linkedin size={20} strokeWidth={1.5} />
-          </Link>
-          <Link href="https://www.instagram.com/yarkhan706/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 hover:-translate-y-0.5" aria-label="Instagram">
-            <Instagram size={20} strokeWidth={1.5} />
-          </Link>
-          <Link href="https://github.com/yarkhan706" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 hover:-translate-y-0.5" aria-label="GitHub">
-            <Github size={20} strokeWidth={1.5} />
-          </Link>
-        </div>
-
-        {/* Copyright */}
-        <p className="text-[11px] tracking-wide text-gray-400">
-          &copy; {year} Asfand Yar Khan
-        </p>
+        ))}
       </div>
+      <span className="text-[11px] tracking-[0.08em] text-[var(--muted)]">
+        © 2026 Asfand Yar Khan
+      </span>
     </footer>
   );
 }

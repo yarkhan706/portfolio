@@ -1,20 +1,8 @@
-import type { Metadata } from "next";
-import { Inter, Newsreader } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navigation from "@/components/ui/global/navigation";
 import Footer from "@/components/ui/global/footer";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  weight: ["300", "400", "500"],
-});
+import PageTransition from "@/components/ui/global/page-transition";
 
 export const metadata: Metadata = {
   title: {
@@ -88,17 +76,15 @@ export const metadata: Metadata = {
   category: 'technology',
   classification: 'Business',
   referrer: 'origin-when-cross-origin',
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' }
-  ],
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   other: {},
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  colorScheme: 'light',
+  themeColor: '#ffffff',
 };
 
 export default function RootLayout({
@@ -162,14 +148,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${inter.variable} ${newsreader.variable} antialiased container mx-auto p-4 px-10`}
-        suppressHydrationWarning
-      >
+      <body className="antialiased" suppressHydrationWarning>
+        <PageTransition />
         <Navigation />
-        <main role="main">
-          {children}
-        </main>
+        <main role="main">{children}</main>
         <Footer />
       </body>
     </html>

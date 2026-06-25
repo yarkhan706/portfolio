@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 
 const GalleryPage = () => {
   // Generate an array of image paths from 1.jpeg to 26.jpeg
@@ -8,6 +9,9 @@ const GalleryPage = () => {
   
   const [selectedImage, setSelectedImage] = useState<{ src: string; index: number } | null>(null);
   const [imageErrors, setImageErrors] = useState(new Set());
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const handleImageError = (index: number) => {
     setImageErrors(prev => new Set([...prev, index]));
@@ -23,123 +27,187 @@ const GalleryPage = () => {
     setSelectedImage(null);
   };
 
-  const navigateImage = (direction: 'next' | 'prev') => {
+  const navigateImage = useCallback(
+    (direction: 'next' | 'prev') => {
+      setSelectedImage((current) => {
+        if (!current) return current;
+        const currentIndex = current.index;
+        let newIndex =
+          direction === 'next'
+            ? (currentIndex + 1) % images.length
+            : currentIndex === 0
+              ? images.length - 1
+              : currentIndex - 1;
+
+        // Skip error images
+        while (imageErrors.has(newIndex) && newIndex !== currentIndex) {
+          newIndex =
+            direction === 'next'
+              ? (newIndex + 1) % images.length
+              : newIndex === 0
+                ? images.length - 1
+                : newIndex - 1;
+        }
+        if (imageErrors.has(newIndex)) return current;
+        return { src: images[newIndex], index: newIndex };
+      });
+    },
+    [images, imageErrors]
+  );
+
+  // Keyboard navigation while the viewer is open.
+  useEffect(() => {
     if (!selectedImage) return;
-    
-    const currentIndex = selectedImage.index;
-    let newIndex;
-    
-    if (direction === 'next') {
-      newIndex = (currentIndex + 1) % images.length;
-    } else {
-      newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-    }
-    
-    // Skip error images
-    while (imageErrors.has(newIndex) && newIndex !== currentIndex) {
-      if (direction === 'next') {
-        newIndex = (newIndex + 1) % images.length;
-      } else {
-        newIndex = newIndex === 0 ? images.length - 1 : newIndex - 1;
-      }
-    }
-    
-    if (!imageErrors.has(newIndex)) {
-      setSelectedImage({ src: images[newIndex], index: newIndex });
-    }
-  };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') navigateImage('next');
+      else if (e.key === 'ArrowLeft') navigateImage('prev');
+    };
+    document.addEventListener('keydown', onKey);
+    // Lock background scroll while the viewer is open.
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [selectedImage, navigateImage]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Masonry Grid Layout */}
-      <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-        {images.map((src, index) => (
-          !imageErrors.has(index) && (
-            <div 
-              key={index} 
-              className="break-inside-avoid mb-4 group cursor-pointer"
-              onClick={() => openLightbox(src, index)}
+    <main className="max-w-[1440px] mx-auto px-6 md:px-10">
+      <section className="pf-page">
+        {/* Header */}
+        <div className="grid grid-cols-12 gap-6 items-end pt-[52px] pb-7">
+          <h1 className="col-span-12 md:col-span-9 m-0 font-bold uppercase text-[clamp(48px,9vw,128px)] leading-[0.86] tracking-[-0.035em]">
+            Off the clock
+          </h1>
+          <div className="col-span-12 md:col-span-3 md:pb-2.5 md:text-right">
+            <a
+              href="https://www.instagram.com/yarkhan706/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] tracking-[0.12em] uppercase text-[var(--ink)] no-underline hover:text-[var(--accent)] transition-colors"
             >
-              <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
+              @yarkhan706 →
+            </a>
+          </div>
+        </div>
+
+        <div className="border-t-2 border-[var(--ink)]" />
+
+        {/* Masonry — full photos, no cropping. One column on mobile,
+            scaling up on wider screens via CSS columns. */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-2 py-11 pb-[60px]">
+          {images.map((src, index) => (
+            !imageErrors.has(index) && (
+              <div
+                key={index}
+                className="mb-2 break-inside-avoid group cursor-pointer bg-[var(--slot)] overflow-hidden"
+                onClick={() => openLightbox(src, index)}
+              >
                 <Image
                   src={src}
                   width={400}
-                  height={300}
+                  height={400}
                   alt={`Gallery Image ${index + 1}`}
-                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.05]"
                   onError={() => handleImageError(index)}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                  <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                    </svg>
-                  </div>
-                </div>
               </div>
-            </div>
-          )
-        ))}
-      </div>
+            )
+          ))}
+        </div>
 
-      {/* Lightbox Modal */}
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+      {/* Lightbox — Swiss viewer. Portalled to <body> so it escapes the
+          pf-page transform (a transformed ancestor breaks position:fixed). */}
+      {mounted && selectedImage && createPortal(
+        <div
+          className="fixed inset-0 z-[110] bg-[var(--paper)] flex flex-col"
           onClick={closeLightbox}
         >
-          <div className="relative max-w-4xl max-h-full">
-            {/* Close button */}
+          {/* Top bar */}
+          <div
+            className="flex items-center justify-between px-6 md:px-10 pt-[22px] pb-4 border-b-2 border-[var(--ink)] shrink-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="text-[11px] tracking-[0.12em] uppercase text-[var(--muted)]">
+              {String(selectedImage.index + 1).padStart(2, '0')} /{' '}
+              {String(images.length - imageErrors.size).padStart(2, '0')}
+            </span>
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white text-2xl z-10 hover:text-gray-300 transition-colors"
+              className="flex items-center gap-2 text-[11px] tracking-[0.12em] uppercase text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
+              aria-label="Close viewer"
             >
-              ×
+              Close <span className="text-[18px] leading-none">✕</span>
             </button>
-            
-            {/* Navigation buttons */}
+          </div>
+
+          {/* Image stage */}
+          <div
+            className="flex-1 flex items-center justify-center gap-4 md:gap-8 px-4 md:px-10 py-6 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Side arrows — desktop only */}
             <button
-              onClick={(e) => { e.stopPropagation(); navigateImage('prev'); }}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-300 transition-colors z-10"
+              onClick={() => navigateImage('prev')}
+              className="hidden md:block shrink-0 text-[var(--ink)] hover:text-[var(--accent)] transition-colors text-5xl leading-none"
+              aria-label="Previous image"
             >
               ‹
             </button>
-            
+
+            <Image
+              src={selectedImage.src}
+              width={1400}
+              height={1000}
+              alt={`Gallery image ${selectedImage.index + 1}`}
+              className="max-w-full max-h-full w-auto h-auto object-contain border-2 border-[var(--ink)]"
+              style={{ maxHeight: 'calc(100vh - 200px)' }}
+            />
+
             <button
-              onClick={(e) => { e.stopPropagation(); navigateImage('next'); }}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-gray-300 transition-colors z-10"
+              onClick={() => navigateImage('next')}
+              className="hidden md:block shrink-0 text-[var(--ink)] hover:text-[var(--accent)] transition-colors text-5xl leading-none"
+              aria-label="Next image"
             >
               ›
             </button>
-            
-            {/* Main image */}
-            <div onClick={(e) => e.stopPropagation()}>
-              <Image
-                src={selectedImage.src}
-                width={1200}
-                height={800}
-                alt={`Gallery Image ${selectedImage.index + 1}`}
-                className="max-w-full max-h-[90vh] object-contain"
-              />
-            </div>
-            
-            {/* Image counter */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm bg-black bg-opacity-50 px-3 py-1 rounded">
-              {selectedImage.index + 1} / {images.length - imageErrors.size}
-            </div>
           </div>
-        </div>
+
+          {/* Bottom Prev / Next bar — mobile only */}
+          <div
+            className="md:hidden flex items-stretch border-t-2 border-[var(--ink)] shrink-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => navigateImage('prev')}
+              className="flex-1 flex items-center justify-center gap-2 py-4 text-[12px] tracking-[0.14em] uppercase text-[var(--ink)] active:text-[var(--accent)] border-r border-[var(--line-soft)]"
+              aria-label="Previous image"
+            >
+              <span className="text-lg leading-none">‹</span> Prev
+            </button>
+            <button
+              onClick={() => navigateImage('next')}
+              className="flex-1 flex items-center justify-center gap-2 py-4 text-[12px] tracking-[0.14em] uppercase text-[var(--ink)] active:text-[var(--accent)]"
+              aria-label="Next image"
+            >
+              Next <span className="text-lg leading-none">›</span>
+            </button>
+          </div>
+        </div>,
+        document.body
       )}
 
-      {/* Loading state for when no images load */}
-      {imageErrors.size === images.length && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No images could be loaded. Please check your image paths.</p>
-        </div>
-      )}
-    </div>
+        {/* Loading state for when no images load */}
+        {imageErrors.size === images.length && (
+          <div className="text-center py-12">
+            <p className="text-[var(--muted)] text-lg">No images could be loaded.</p>
+          </div>
+        )}
+      </section>
+    </main>
   );
 };
 
