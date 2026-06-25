@@ -1,118 +1,175 @@
 'use client'
-import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import React from 'react';
+import { ImageWithSkeleton } from '@/components/ui/image-with-skeleton';
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="flex items-center gap-3 mb-5">
+            <h3 className="text-xs tracking-[0.25em] uppercase text-gray-400 whitespace-nowrap">
+                {children}
+            </h3>
+            <span className="h-px flex-1 bg-gray-100" />
+        </div>
+    );
+}
+
+function TimelineEntry({ date, title, detail }: { date: string; title: string; detail: React.ReactNode }) {
+    return (
+        <div className="group">
+            <p className="text-[11px] tracking-wide text-gray-400 mb-0.5">{date}</p>
+            <p className="font-medium text-gray-900">{title}</p>
+            <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{detail}</p>
+        </div>
+    );
+}
 
 export default function AboutMe() {
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8 bg-white">
-            <div className="grid md:grid-cols-2 gap-16">
-                {/* Left Column - Images and Timeline */}
-                <div className="space-y-8">
-                    {/* Image Placeholder */}
-                    <div className="w-full  rounded-lg flex items-start justify-center">
-                        <Image src="/images/profile.jpeg" alt="Profile" width={350} height={350} />
+        <div className="max-w-5xl mx-auto px-4 py-10 md:py-16 bg-white">
+            <div className="grid md:grid-cols-2 gap-12 md:gap-20">
+                {/* Left Column — Portrait & Timeline */}
+                <div className="space-y-12">
+                    {/* Portrait */}
+                    <div className="reveal overflow-hidden rounded-2xl">
+                        <ImageWithSkeleton
+                            src="/images/profile.jpeg"
+                            alt="Asfand Yar Khan"
+                            width={400}
+                            height={400}
+                            className="w-full h-auto object-cover saturate-[0.95] transition-all duration-500 hover:saturate-100"
+                            priority
+                        />
                     </div>
-                    
-                    {/* Education Timeline */}
-                    <div className="space-y-4">
-                        <div>
-                            <span className="text-sm font-medium text-gray-900">2021-2025</span>
-                            <span className="text-sm text-gray-600 ml-2">Computer Science Student at</span>
-                            <span className="text-sm text-gray-600 ml-1">COMSATS University Islamabad, Attock Campus</span>
-                        </div>
-                        
-                        <div>
-                            <span className="text-sm font-medium text-gray-900">2020-2021</span>
-                            <span className="text-sm text-gray-600 ml-2">Computer Science Intermediate at</span>
-                            <span className="text-sm text-gray-600 ml-1">Fazaia College ARF, Kamra</span>
-                        </div>
-                        
-                        <div>
-                            <span className="text-sm font-medium text-gray-900">2018-2019</span>
-                            <span className="text-sm text-gray-600 ml-2">Matriculation at</span>
-                            <span className="text-sm text-gray-600 ml-1">Asma Private School</span>
-                        </div>
-                    </div>
-                    
-                    {/* Projects Section */}
-                    <div>
-                        <h3 className="text-lg font-medium text-gray-900 mb-4">Projects</h3>
-                        <div className="space-y-2 text-sm">
-                            <div>
-                                <span className="font-medium">2025</span>
-                                <span className="text-gray-600 ml-2">Final Year Project -</span>
-                                <span className="text-gray-600 ml-1">AcademeEase</span>
-                            </div>
-                            <div className="text-xs text-gray-500 ml-12 -mt-1">
-                                A full SaaS academic productivity tool integrating AI prompt engineering
-                            </div>
+
+                    {/* Selected Projects */}
+                    <div className="reveal">
+                        <SectionLabel>Selected Projects</SectionLabel>
+                        <div className="space-y-5">
+                            <TimelineEntry
+                                date="2026"
+                                title="Maxiom"
+                                detail="AI fitness & health coaching platform with a real-time voice coach, wearable integration, and personalized guidance."
+                            />
+                            <TimelineEntry
+                                date="2026"
+                                title="MindTime AI"
+                                detail="Self-serve Team Intelligence platform that turns cognitive science into a context-aware AI assistant."
+                            />
+                            <TimelineEntry
+                                date="2025"
+                                title="AcademeEase"
+                                detail="Final year project — a full-stack SaaS academic productivity suite with an AI-powered editor and task management."
+                            />
                         </div>
                     </div>
-                    
-                    {/* Education Section */}
-                    <div>
-                        <h3 className="text-lg font-medium text-gray-900 mb-4">Education</h3>
-                        <div className="space-y-2 text-sm">
-                            <div>
-                                <span className="font-medium">2021-2025</span>
-                                <span className="text-gray-600 ml-2">Bachelor in Computer Science | COMSATS University Islamabad, Attock Campus</span>
-                            </div>
-                            <div>
-                                <span className="font-medium">2020-2021</span>
-                                <span className="text-gray-600 ml-2">Intermediate in Computer Science | Fazaia College ARF, Kamra</span>
-                            </div>
-                            <div>
-                                <span className="font-medium">2018-2019</span>
-                                <span className="text-gray-600 ml-2">Matriculation | Asma Private School</span>
-                            </div>
+
+                    {/* Education */}
+                    <div className="reveal">
+                        <SectionLabel>Education</SectionLabel>
+                        <div className="space-y-5">
+                            <TimelineEntry
+                                date="2021 — 2025"
+                                title="Bachelor in Computer Science"
+                                detail="COMSATS University Islamabad, Attock Campus"
+                            />
+                            <TimelineEntry
+                                date="2020 — 2021"
+                                title="Intermediate in Computer Science"
+                                detail="Fazaia College ARF, Kamra"
+                            />
+                            <TimelineEntry
+                                date="2018 — 2019"
+                                title="Matriculation"
+                                detail="Asma Private School"
+                            />
                         </div>
                     </div>
                 </div>
-                
-                {/* Right Column - Main Content */}
-                <div className="space-y-8">
-                    {/* Main Description */}
-                    <div>
-                        <h1 className="text-2xl font-light text-gray-900 mb-6 leading-relaxed">
-                            Creating digital solutions that embrace simplicity and improve the human experience.
-                        </h1>
-                        
-                        <p className="text-sm text-gray-600 leading-relaxed mb-6">
-                            Asfand Yar Khan is a Computer Science graduate and web developer based in Attock, Pakistan. With a passion for clean, minimal design inspired by Japanese aesthetics, he focuses on creating digital solutions that prioritize simplicity and functionality. During his studies at COMSATS University Islamabad, he developed expertise in full-stack web development and AI integration. His final year project, AcademeEase, showcases his ability to combine modern web technologies with AI prompt engineering to create meaningful productivity tools.
+
+                {/* Right Column — Main Content */}
+                <div className="space-y-12">
+                    {/* Intro */}
+                    <div className="reveal">
+                        <p className="text-xs tracking-[0.25em] uppercase text-gray-400 mb-5">
+                            Asfand Yar Khan
                         </p>
-                        
-                        {/* Contact */}
-                        <div className="mb-8">
-                            <h3 className="text-base font-medium text-gray-900 mb-2">Contact</h3>
-                            <p className="text-sm text-gray-600 mb-1">asfandyarkhan.dev@gmail.com</p>
-                            <a href="https://www.linkedin.com/in/yarkhan706" className="text-sm text-gray-600 underline">www.linkedin.com/in/yarkhan706</a>
-                            <br />
-                            <a href="https://www.github.com/yarkhan706" className="text-sm text-gray-600 underline">https://www.github.com/yarkhan706</a>
-                        </div>
-                        
-                        {/* Work Section */}
-                        <div>
-                            <h3 className="text-base font-medium text-gray-900 mb-4">Work</h3>
-                            <div className="space-y-4 text-sm">
-                                <div>
-                                    <span className="font-medium">2021-2025</span>
-                                    <span className="text-gray-600 ml-2">Freelance Web Developer during studies</span>
-                                </div>
-                                
-                                <div>
-                                    <span className="font-medium">2025</span>
-                                    <span className="text-gray-600 ml-2">Final Year Project -</span>
-                                    <span className="text-gray-600 ml-1">AcademeEase (Full SaaS Platform)</span>
-                                </div>
+                        <h1 className="font-serif-display text-3xl md:text-[2.6rem] font-light text-gray-900 leading-[1.15] mb-7">
+                            Crafting digital products that embrace{' '}
+                            <span className="italic">simplicity<span className="accent-amber">.</span></span>
+                        </h1>
+
+                        <p className="text-sm text-gray-600 leading-relaxed">
+                            A Computer Science graduate and full-stack engineer based in Attock, Pakistan.
+                            Drawn to clean, minimal design inspired by Japanese aesthetics, I build AI-powered
+                            web products that pair thoughtful interfaces with intelligent behaviour. My work spans
+                            real-time AI coaching, cognitive-science-driven team intelligence, and a SaaS academic
+                            productivity suite — each one combining modern React and TypeScript stacks with practical
+                            AI integration. I care about shipping products that feel simple to use and genuinely improve
+                            how people work, learn, and live.
+                        </p>
+                    </div>
+
+                    {/* Work */}
+                    <div className="reveal">
+                        <SectionLabel>Work</SectionLabel>
+                        <div className="space-y-5">
+                            <div>
+                                <p className="text-[11px] tracking-wide text-gray-400 mb-0.5">2026 — Present</p>
+                                <p className="font-medium text-gray-900">
+                                    Full-Stack Engineer ·{' '}
+                                    <a
+                                        href="https://www.brainboxautomations.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="link-underline pb-0.5"
+                                    >
+                                        Brainbox Automations
+                                    </a>
+                                </p>
+                                <p className="text-xs text-gray-500 mt-0.5">Building AI products including Maxiom and MindTime AI.</p>
                             </div>
+                            <TimelineEntry
+                                date="2021 — 2025"
+                                title="Freelance Web Developer"
+                                detail="Designing and building client websites alongside studies."
+                            />
                         </div>
                     </div>
-                    
-                    {/* Lifestyle Image */}
-                    <div className="relative w-full h-auto bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                        <div className="absolute text-xs bg-white/70 cursor-pointer hover:bg-white/50 font-medium text-black px-4 py-3 rounded-none" onClick={() => redirect('/gallery')}>LIFESTYLE</div>
-                        <Image src={'/images/gallery/10.jpeg'} alt="Life Style" width={600} height={800} />
+
+                    {/* Contact */}
+                    <div className="reveal">
+                        <SectionLabel>Contact</SectionLabel>
+                        <div className="space-y-1.5 text-sm">
+                            <a href="mailto:asfandyarkhan.dev@gmail.com" className="block text-gray-600 hover:text-gray-900 w-fit link-underline pb-0.5">
+                                asfandyarkhan.dev@gmail.com
+                            </a>
+                            <a href="https://www.linkedin.com/in/yarkhan706" target="_blank" rel="noopener noreferrer" className="block text-gray-600 hover:text-gray-900 w-fit link-underline pb-0.5">
+                                linkedin.com/in/yarkhan706
+                            </a>
+                            <a href="https://www.github.com/yarkhan706" target="_blank" rel="noopener noreferrer" className="block text-gray-600 hover:text-gray-900 w-fit link-underline pb-0.5">
+                                github.com/yarkhan706
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Lifestyle */}
+                    <div
+                        className="reveal group relative aspect-[3/4] w-full overflow-hidden rounded-2xl cursor-pointer"
+                        onClick={() => redirect('/gallery')}
+                    >
+                        <ImageWithSkeleton
+                            src={'/images/gallery/10.jpeg'}
+                            alt="Lifestyle"
+                            width={600}
+                            height={800}
+                            wrapperClassName="h-full w-full"
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                        <div className="absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                        <span className="absolute bottom-4 left-4 text-xs tracking-[0.2em] uppercase text-white bg-black/40 backdrop-blur-sm px-3 py-2 rounded-md">
+                            Lifestyle ↗
+                        </span>
                     </div>
                 </div>
             </div>

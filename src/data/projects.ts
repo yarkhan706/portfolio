@@ -1,5 +1,69 @@
 export const projects = [
   {
+    name: "Maxiom",
+    description: `
+    <h2 class="text-xl font-bold mb-2">Maxiom: AI-Powered Fitness & Health Coaching Platform</h2>
+    <p class="text-gray-700 mb-4">
+      Maxiom ("Live optimized.") is an AI fitness and health partner that pairs an intelligent coach, Max, with cutting-edge science and expert human insight. It delivers hyper-personalized guidance for workouts, nutrition, and recovery built around each user's unique biology, goals, and daily data—continuously learning and refining its advice over time.
+    </p>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li><span class="font-semibold">Conversational AI Coach:</span> Real-time voice and chat coaching powered by OpenAI's realtime agents for friendly, science-backed guidance.</li>
+      <li><span class="font-semibold">Wearable Integration:</span> Terra API connects fitness trackers and health devices to feed live biometric data into personalized recommendations.</li>
+      <li><span class="font-semibold">Hyper-Personalization:</span> Tailors plans to a user's body, goals, and routine, adapting as new data arrives—no judgment, ever.</li>
+      <li><span class="font-semibold">Guided Onboarding:</span> A 90-second setup with onboarding surveys and a tutorial wizard to get users coaching fast.</li>
+      <li><span class="font-semibold">AWS Backend:</span> Built on AWS Amplify with DataStore, DynamoDB, and S3 for scalable, real-time data and media handling.</li>
+      <li><span class="font-semibold">Payments:</span> Stripe checkout and subscription management for freemium-to-paid flows.</li>
+      <li><span class="font-semibold">Analytics & Consent:</span> PostHog product analytics with a consent-aware tracking layer for privacy compliance.</li>
+      <li><span class="font-semibold">Modern Stack:</span> React, Vite, Tailwind CSS, and Radix UI for a fast, polished, fully responsive experience.</li>
+    </ul>
+    <p class="mt-4 text-gray-700">
+      Maxiom blends advanced AI with personalized human coaching to become not just a tool, but a partner in your journey toward health and fitness excellence.
+      <br />
+      <a href="https://www.maxiom.io/" target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">
+        Explore Maxiom
+      </a>
+    </p>
+    `,
+    stack: ["React", "Vite", "AWS Amplify", "DynamoDB", "Amazon S3", "OpenAI", "Terra API", "Stripe", "Tailwind CSS"],
+    cover: "/images/maxiom.png",
+    screenshots: [
+      "/images/maxiom.png",
+    ],
+    link: "https://www.maxiom.io/"
+  },
+  {
+    name: "MindTime AI",
+    description: `
+    <h2 class="text-xl font-bold mb-2">MindTime AI: Team Intelligence Built on How You Think</h2>
+    <p class="text-gray-700 mb-4">
+      MindTime AI turns the science of how people think into a self-serve Team Intelligence platform. Grounded in MindTime's cognitive framework—"How you think is your gift"—it builds individual and team cognitive profiles, then weaves them into an AI assistant, Clara, that understands the context of each person and team.
+    </p>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+      <li><span class="font-semibold">Self-Serve Experience:</span> Users sign up independently, build a team, pass through a paywall, and manage members—all without admin involvement, running alongside the existing enterprise platform.</li>
+      <li><span class="font-semibold">Clara AI Assistant:</span> A context-aware chat assistant built on the Vercel AI SDK that draws on cognitive maps, reports, and team data to give grounded, personalized responses.</li>
+      <li><span class="font-semibold">Cognitive Maps & Reports:</span> Surveys feed a thinking-style engine that renders individual cognitive maps and comparison reports for teams.</li>
+      <li><span class="font-semibold">Supabase Backend:</span> PostgreSQL with edge functions, auth, and generated types for a type-safe, scalable data layer.</li>
+      <li><span class="font-semibold">Permission & State Management:</span> Five distinct user states (personal, comparison, trial leader, paid leader, member), each with consistently enforced access and feature gating.</li>
+      <li><span class="font-semibold">Trial Wall & Stripe Payments:</span> A soft upgrade gate with Stripe checkout, webhooks, and an invoice path keep subscription state in sync.</li>
+      <li><span class="font-semibold">Embeddable Plugin:</span> A lightweight UMD widget lets the cognitive surface be embedded in external sites.</li>
+      <li><span class="font-semibold">Modern Stack:</span> React, TypeScript, Vite, Tailwind CSS, and Radix UI with Sentry monitoring and PostHog analytics.</li>
+    </ul>
+    <p class="mt-4 text-gray-700">
+      MindTime AI takes a person's unique way of thinking and builds it directly into their AI—turning cognitive science into practical team intelligence.
+      <br />
+      <a href="https://mindtime.com/" target="_blank" class="text-blue-600 hover:underline" rel="noopener noreferrer">
+        Explore MindTime
+      </a>
+    </p>
+    `,
+    stack: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL", "Vercel AI SDK", "Stripe", "Tailwind CSS"],
+    cover: "/images/mindtime.png",
+    screenshots: [
+      "/images/mindtime.png",
+    ],
+    link: "https://mindtime.com/"
+  },
+  {
     name: "AcademeEase",
     description: `
   <h2 class="text-xl font-bold mb-2">AcademeEase: An AI-powered academic productivity platform</h2>
@@ -140,7 +204,7 @@ export const projects = [
       "/images/chex.png",
     ],
     link: "https://github.com/yarkhan706/botdrop"
-  }  
+  }
 
   ];
   

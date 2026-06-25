@@ -19,10 +19,27 @@ export default function Header() {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center text-gray-400 gap-4  text-sm tracking-tight">
-          <Link href="/aboutme" className={`${pathname === "/aboutme" ? "text-gray-900" : "hover:text-gray-900 active:text-gray-900"}`}>about</Link>
-          <Link href="/work" className={`${pathname === "/work" ? "text-gray-900" : "hover:text-gray-900 active:text-gray-900"}`}>work</Link>
-          <Link href="https://www.instagram.com/yarkhan706/" className={`${pathname === "/instagram" ? "text-gray-900" : "hover:text-gray-900 active:text-gray-900"}`}>instagram</Link>
+        <nav className="hidden md:flex items-center text-gray-400 gap-6 text-sm tracking-tight">
+          <Link
+            href="/aboutme"
+            className={`link-underline pb-0.5 ${pathname === "/aboutme" ? "text-gray-900" : "hover:text-gray-900"}`}
+          >
+            about
+          </Link>
+          <Link
+            href="/work"
+            className={`link-underline pb-0.5 ${pathname.startsWith("/work") ? "text-gray-900" : "hover:text-gray-900"}`}
+          >
+            work
+          </Link>
+          <Link
+            href="https://www.instagram.com/yarkhan706/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline pb-0.5 hover:text-gray-900"
+          >
+            instagram
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}

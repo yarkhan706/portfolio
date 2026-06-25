@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/ui/global/navigation";
 import Footer from "@/components/ui/global/footer";
@@ -7,6 +7,13 @@ import Footer from "@/components/ui/global/footer";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -156,7 +163,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} antialiased container mx-auto p-4 px-10`}
+        className={`${inter.variable} ${newsreader.variable} antialiased container mx-auto p-4 px-10`}
         suppressHydrationWarning
       >
         <Navigation />
